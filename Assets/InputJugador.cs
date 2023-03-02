@@ -37,12 +37,39 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Saltar"",
+                    ""name"": ""AtaqueDist"",
                     ""type"": ""Button"",
-                    ""id"": ""1213b7c9-24cd-4b29-80e3-5397577ee034"",
+                    ""id"": ""7773dc29-0f05-4b9f-b582-e5bf83c8c17b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Tap"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AtaqueDistCar"",
+                    ""type"": ""Button"",
+                    ""id"": ""3bc1416c-3bd2-42e8-9444-9d34a9f0ab2e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AtaqueMele"",
+                    ""type"": ""Button"",
+                    ""id"": ""e56ff7a7-a8e9-4cf7-9496-e8ce889f24d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Defensa"",
+                    ""type"": ""Button"",
+                    ""id"": ""5725547f-d3d4-4535-94af-90ce4ea696fe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
@@ -104,12 +131,45 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e8c39810-7752-4261-a702-8f8134ded74c"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
+                    ""id"": ""4a75df4f-2c08-40b4-9a2e-f026269df8ee"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Saltar"",
+                    ""action"": ""AtaqueDist"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6040e31-c4a7-428a-9f01-b534e97389ac"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold(duration=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AtaqueDistCar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7ccbe14-b301-4730-9ffa-16d22ab911cd"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AtaqueMele"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51bd2c93-24a8-4753-802c-551b33a3a6dc"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Defensa"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -121,7 +181,10 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
         // Jugador
         m_Jugador = asset.FindActionMap("Jugador", throwIfNotFound: true);
         m_Jugador_Caminar = m_Jugador.FindAction("Caminar", throwIfNotFound: true);
-        m_Jugador_Saltar = m_Jugador.FindAction("Saltar", throwIfNotFound: true);
+        m_Jugador_AtaqueDist = m_Jugador.FindAction("AtaqueDist", throwIfNotFound: true);
+        m_Jugador_AtaqueDistCar = m_Jugador.FindAction("AtaqueDistCar", throwIfNotFound: true);
+        m_Jugador_AtaqueMele = m_Jugador.FindAction("AtaqueMele", throwIfNotFound: true);
+        m_Jugador_Defensa = m_Jugador.FindAction("Defensa", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,13 +245,19 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Jugador;
     private IJugadorActions m_JugadorActionsCallbackInterface;
     private readonly InputAction m_Jugador_Caminar;
-    private readonly InputAction m_Jugador_Saltar;
+    private readonly InputAction m_Jugador_AtaqueDist;
+    private readonly InputAction m_Jugador_AtaqueDistCar;
+    private readonly InputAction m_Jugador_AtaqueMele;
+    private readonly InputAction m_Jugador_Defensa;
     public struct JugadorActions
     {
         private @InputJugador m_Wrapper;
         public JugadorActions(@InputJugador wrapper) { m_Wrapper = wrapper; }
         public InputAction @Caminar => m_Wrapper.m_Jugador_Caminar;
-        public InputAction @Saltar => m_Wrapper.m_Jugador_Saltar;
+        public InputAction @AtaqueDist => m_Wrapper.m_Jugador_AtaqueDist;
+        public InputAction @AtaqueDistCar => m_Wrapper.m_Jugador_AtaqueDistCar;
+        public InputAction @AtaqueMele => m_Wrapper.m_Jugador_AtaqueMele;
+        public InputAction @Defensa => m_Wrapper.m_Jugador_Defensa;
         public InputActionMap Get() { return m_Wrapper.m_Jugador; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -201,9 +270,18 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
                 @Caminar.started -= m_Wrapper.m_JugadorActionsCallbackInterface.OnCaminar;
                 @Caminar.performed -= m_Wrapper.m_JugadorActionsCallbackInterface.OnCaminar;
                 @Caminar.canceled -= m_Wrapper.m_JugadorActionsCallbackInterface.OnCaminar;
-                @Saltar.started -= m_Wrapper.m_JugadorActionsCallbackInterface.OnSaltar;
-                @Saltar.performed -= m_Wrapper.m_JugadorActionsCallbackInterface.OnSaltar;
-                @Saltar.canceled -= m_Wrapper.m_JugadorActionsCallbackInterface.OnSaltar;
+                @AtaqueDist.started -= m_Wrapper.m_JugadorActionsCallbackInterface.OnAtaqueDist;
+                @AtaqueDist.performed -= m_Wrapper.m_JugadorActionsCallbackInterface.OnAtaqueDist;
+                @AtaqueDist.canceled -= m_Wrapper.m_JugadorActionsCallbackInterface.OnAtaqueDist;
+                @AtaqueDistCar.started -= m_Wrapper.m_JugadorActionsCallbackInterface.OnAtaqueDistCar;
+                @AtaqueDistCar.performed -= m_Wrapper.m_JugadorActionsCallbackInterface.OnAtaqueDistCar;
+                @AtaqueDistCar.canceled -= m_Wrapper.m_JugadorActionsCallbackInterface.OnAtaqueDistCar;
+                @AtaqueMele.started -= m_Wrapper.m_JugadorActionsCallbackInterface.OnAtaqueMele;
+                @AtaqueMele.performed -= m_Wrapper.m_JugadorActionsCallbackInterface.OnAtaqueMele;
+                @AtaqueMele.canceled -= m_Wrapper.m_JugadorActionsCallbackInterface.OnAtaqueMele;
+                @Defensa.started -= m_Wrapper.m_JugadorActionsCallbackInterface.OnDefensa;
+                @Defensa.performed -= m_Wrapper.m_JugadorActionsCallbackInterface.OnDefensa;
+                @Defensa.canceled -= m_Wrapper.m_JugadorActionsCallbackInterface.OnDefensa;
             }
             m_Wrapper.m_JugadorActionsCallbackInterface = instance;
             if (instance != null)
@@ -211,9 +289,18 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
                 @Caminar.started += instance.OnCaminar;
                 @Caminar.performed += instance.OnCaminar;
                 @Caminar.canceled += instance.OnCaminar;
-                @Saltar.started += instance.OnSaltar;
-                @Saltar.performed += instance.OnSaltar;
-                @Saltar.canceled += instance.OnSaltar;
+                @AtaqueDist.started += instance.OnAtaqueDist;
+                @AtaqueDist.performed += instance.OnAtaqueDist;
+                @AtaqueDist.canceled += instance.OnAtaqueDist;
+                @AtaqueDistCar.started += instance.OnAtaqueDistCar;
+                @AtaqueDistCar.performed += instance.OnAtaqueDistCar;
+                @AtaqueDistCar.canceled += instance.OnAtaqueDistCar;
+                @AtaqueMele.started += instance.OnAtaqueMele;
+                @AtaqueMele.performed += instance.OnAtaqueMele;
+                @AtaqueMele.canceled += instance.OnAtaqueMele;
+                @Defensa.started += instance.OnDefensa;
+                @Defensa.performed += instance.OnDefensa;
+                @Defensa.canceled += instance.OnDefensa;
             }
         }
     }
@@ -221,6 +308,9 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
     public interface IJugadorActions
     {
         void OnCaminar(InputAction.CallbackContext context);
-        void OnSaltar(InputAction.CallbackContext context);
+        void OnAtaqueDist(InputAction.CallbackContext context);
+        void OnAtaqueDistCar(InputAction.CallbackContext context);
+        void OnAtaqueMele(InputAction.CallbackContext context);
+        void OnDefensa(InputAction.CallbackContext context);
     }
 }

@@ -15,12 +15,39 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Saltar",
+                    "name": "AtaqueDist",
                     "type": "Button",
-                    "id": "1213b7c9-24cd-4b29-80e3-5397577ee034",
+                    "id": "7773dc29-0f05-4b9f-b582-e5bf83c8c17b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AtaqueDistCar",
+                    "type": "Button",
+                    "id": "3bc1416c-3bd2-42e8-9444-9d34a9f0ab2e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AtaqueMele",
+                    "type": "Button",
+                    "id": "e56ff7a7-a8e9-4cf7-9496-e8ce889f24d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Defensa",
+                    "type": "Button",
+                    "id": "5725547f-d3d4-4535-94af-90ce4ea696fe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -82,12 +109,45 @@
                 },
                 {
                     "name": "",
-                    "id": "e8c39810-7752-4261-a702-8f8134ded74c",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "id": "4a75df4f-2c08-40b4-9a2e-f026269df8ee",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
-                    "action": "Saltar",
+                    "action": "AtaqueDist",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6040e31-c4a7-428a-9f01-b534e97389ac",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold(duration=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AtaqueDistCar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f7ccbe14-b301-4730-9ffa-16d22ab911cd",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AtaqueMele",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51bd2c93-24a8-4753-802c-551b33a3a6dc",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Defensa",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

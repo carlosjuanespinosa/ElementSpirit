@@ -6,77 +6,161 @@ public class Movimiento : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private float speed = 10f;
-    [SerializeField] private CharacterController cc;
-    [SerializeField] private float gravityMultiplier = 2f;
-    [SerializeField] private float jumpHeight = 5f;
-    [SerializeField] private int maxJumps = 2;
-    [SerializeField] private float rotar = 400;
+    [SerializeField] private float maxRange = 15;
+    [SerializeField] private float meleRange = 2F;
+    [SerializeField] private GameObject escudo;
+    [SerializeField] private ParticleSystem delante;
+    [SerializeField] private ParticleSystem derecha;
+    [SerializeField] private ParticleSystem izquierda;
+    [SerializeField] private ParticleSystem detras;
+    [SerializeField] private ParticleSystem mele;
+    [SerializeField] private LayerMask layerVision;
+    [SerializeField] private float rotar = 100;
     // [SerializeField] private Animator animator;
 
     private Vector3 movementVector = new Vector3();
-    private float gravityApplied;
-    private int remainingJumps;
-    private Vector3 jumpVelocity;
-    public Transform target;
+    private bool defensa = false;
+    private float temp= 5;
+    private Rigidbody rb;
+    
+    
     private void Start()
     {
-        gravityApplied = Physics.gravity.y * gravityMultiplier;
-        remainingJumps = maxJumps;
+        rb = GetComponent<Rigidbody>();
+        escudo.SetActive(false);
+        
     }
     public void SetMovementVector(Vector3 _movementVector)
     {
+        
         movementVector = _movementVector;
+    }
+   
+    public void DistAt()
+    {
+        if(delante.isStopped && mele.isStopped && !defensa)
+            {
+            AtaqueDist();
+        }
+    }
+
+    public void CaC()
+    {
+        MeleAtaque();
+    }
+    public void DistAtCar()
+    {
+        if (delante.isStopped && mele.isStopped && !defensa)
+        {
+            AtaqueDistCarg();
+        }
+    }
+    public void Defensa()
+    {
+        Escudo();
     }
 
     private void Update()
     {
         Move();
-        ApplyGravity();
-        Rotar();
-
+        if (Time.time > temp)
+        {
+            delante.Stop();
+            derecha.Stop();
+            detras.Stop();
+            izquierda.Stop();
+            mele.Stop();
+            
+        }
     }
 
-    private void Rotar()
+    /*private void Rotar()
     {
         Vector3 relativePos = target.position - transform.position;
 
         Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
         transform.rotation = rotation;
         
-    }
+    }*/
     private void Move()
     {
-       // animator.SetFloat("z_move", movementVector.z);
+        // animator.SetFloat("z_move", movementVector.z);
         //animator.SetFloat("x_move", movementVector.x);
         //animator.SetBool("isMoving", movementVector.magnitude > 0);
-        Debug.Log(movementVector);
-       
-        cc.Move(movementVector * speed * Time.deltaTime);
-
-
-    }
-
-    public void Jump()
-    {
-        //animator.Set
-        if (cc.isGrounded || (!cc.isGrounded && remainingJumps > 0))
+        if (movementVector.magnitude > 0)
         {
-            jumpVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravityApplied);
-            remainingJumps--;
+            Quaternion rotacioMoviment = Quaternion.LookRotation(movementVector, transform.up);
+            transform.rotation = Quaternion.RotateTowards(transform.localRotation, rotacioMoviment, rotar);
         }
-    }
-    private void ApplyGravity()
-    {
-        cc.Move(jumpVelocity * Time.deltaTime);
-        if (cc.isGrounded && jumpVelocity.y < 0f)
+
+       
+
+        if (delante.isStopped && mele.isStopped && !defensa)
         {
-            remainingJumps = maxJumps;
-            jumpVelocity.y = -2f;
+         
+            rb.velocity = new Vector3(movementVector.x * speed, 0, movementVector.z * speed);
+
+        }   
+
+    }
+
+    
+    private void AtaqueDistCarg()
+    {
+        derecha.Play();
+        delante.Play();
+        izquierda.Play();
+        detras.Play();
+        temp = Time.time + 10;
+    }
+
+    private void AtaqueDist()
+    {
+        delante.Play();
+        temp = Time.time + 10;
+    }
+
+    private void MeleAtaque()
+    {
+        if (delante.isStopped && mele.isStopped && !defensa)
+        {
+            Collider[] golpe = Physics.OverlapSphere(transform.position, meleRange, layerVision);
+            mele.Play();
+            temp = Time.time + 2;
+            foreach (Collider col in golpe)
+            {
+                Debug.Log("Golpe Mele");
+
+
+            }
+        } 
+    }
+
+    private void Escudo()
+    {
+        if (!defensa && delante.isStopped && mele.isStopped)
+        {
+            escudo.SetActive(true);
+            defensa = true;
         }
         else
         {
-            jumpVelocity.y += gravityApplied * Time.deltaTime;
-        }
+            escudo.SetActive(false);
+            defensa = false;
+        }   
+    }
+  
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, maxRange);
+        Gizmos.DrawWireSphere(transform.position, meleRange);
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log(other.name);
+        
+
     }
 }
 

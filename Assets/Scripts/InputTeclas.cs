@@ -17,8 +17,10 @@ public class InputTeclas : MonoBehaviour
 
         inputJug.Jugador.Caminar.performed += Caminar;
         inputJug.Jugador.Caminar.canceled += Caminar;
-        inputJug.Jugador.Saltar.performed += Saltar;
-        inputJug.Jugador.Saltar.canceled += Saltar;
+        inputJug.Jugador.AtaqueDist.performed += AtqDist;
+        inputJug.Jugador.AtaqueDistCar.performed += AtqDistCarg;
+        inputJug.Jugador.AtaqueMele.performed += AtqMele;
+        inputJug.Jugador.Defensa.performed += Defens;
 
     }
 
@@ -28,16 +30,32 @@ public class InputTeclas : MonoBehaviour
         movimiento.SetMovementVector(new Vector3(moveDirection.x, 0, moveDirection.y));
     }
 
-    private void Saltar (InputAction.CallbackContext ctx)
+    private void AtqDist (InputAction.CallbackContext ctx)
     {
-        movimiento.Jump();
+        movimiento.DistAt();
+    } 
+
+    private void AtqDistCarg (InputAction.CallbackContext ctx)
+    {
+        movimiento.DistAtCar();
+    }
+    
+    private void AtqMele(InputAction.CallbackContext ctx)
+    {
+        movimiento.CaC();
+    }private void Defens (InputAction.CallbackContext ctx)
+    {
+        movimiento.Defensa();
     }
     private void OnDisable()
     {
         inputJug.Jugador.Caminar.performed -= Caminar;
         inputJug.Jugador.Caminar.canceled -= Caminar;
-        inputJug.Jugador.Saltar.performed -= Saltar;
-        inputJug.Jugador.Saltar.canceled -= Saltar;
+        inputJug.Jugador.AtaqueDist.performed -= AtqDist;
+        inputJug.Jugador.AtaqueDistCar.performed -= AtqDistCarg;
+        inputJug.Jugador.AtaqueMele.performed -= AtqMele;
+        inputJug.Jugador.Defensa.performed -= Defens;
+
         inputJug.Disable();
     }
 }
