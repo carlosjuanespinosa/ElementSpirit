@@ -5,6 +5,8 @@ using UnityEngine;
 public class Movimiento : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] private float CARGA_DISTANCIA = 10;
+    [SerializeField] private float CARGA_MELE = 2;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float maxRange = 15;
     [SerializeField] private float meleRange = 2F;
@@ -16,12 +18,17 @@ public class Movimiento : MonoBehaviour
     [SerializeField] private ParticleSystem mele;
     [SerializeField] private LayerMask layerVision;
     [SerializeField] private float rotar = 100;
-    // [SerializeField] private Animator animator;
+    [SerializeField] private float explForce =2500;
+    [SerializeField] StatsPlayers StatsEnemigo;
+        // [SerializeField] private Animator animator;
 
     private Vector3 movementVector = new Vector3();
     private bool defensa = false;
     private float temp= 5;
     private Rigidbody rb;
+    private float forceAtack = 0;
+    private Enemigo enemi;
+
     
     
     private void Start()
@@ -72,6 +79,7 @@ public class Movimiento : MonoBehaviour
             mele.Stop();
             
         }
+       
     }
 
     /*private void Rotar()
@@ -111,13 +119,13 @@ public class Movimiento : MonoBehaviour
         delante.Play();
         izquierda.Play();
         detras.Play();
-        temp = Time.time + 10;
+        temp = Time.time + CARGA_DISTANCIA;
     }
 
     private void AtaqueDist()
     {
         delante.Play();
-        temp = Time.time + 10;
+        temp = Time.time + CARGA_DISTANCIA;
     }
 
     private void MeleAtaque()
@@ -126,12 +134,14 @@ public class Movimiento : MonoBehaviour
         {
             Collider[] golpe = Physics.OverlapSphere(transform.position, meleRange, layerVision);
             mele.Play();
-            temp = Time.time + 2;
+            temp = Time.time + CARGA_MELE;
             foreach (Collider col in golpe)
             {
-                Debug.Log("Golpe Mele");
-
-
+                if (col.TryGetComponent(out Rigidbody rg)) {
+                    FuerzaAtaque();
+                    rg.AddExplosionForce(forceAtack, transform.position, meleRange, 10);
+                    
+                }
             }
         } 
     }
@@ -161,6 +171,11 @@ public class Movimiento : MonoBehaviour
         Debug.Log(other.name);
         
 
+    }
+    private void FuerzaAtaque()
+    {
+       forceAtack= explForce * (1 + StatsEnemigo.daño / 100);
+        
     }
 }
 

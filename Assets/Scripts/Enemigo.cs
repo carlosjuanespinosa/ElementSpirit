@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Enemigo : MonoBehaviour
 {
-
+    private float TEMPS_SPAWN = 2;
+    [SerializeField] private float VELOCITY_MAGNITUDE = 45;
     [SerializeField] StatsPlayers StatsEnemigos;
     Rigidbody rb;
     float temp = 5;
@@ -27,7 +28,7 @@ public class Enemigo : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(rb.velocity.magnitude > 45)
+        if(rb.velocity.magnitude > VELOCITY_MAGNITUDE)
         {
             Despawn();
         } 
@@ -54,6 +55,6 @@ public class Enemigo : MonoBehaviour
         rb.isKinematic=true;
         transform.position = resp;
         StatsEnemigos.Respawn();
-        temp = Time.time + 2;
+        temp = Time.time + TEMPS_SPAWN;
     }
 }
