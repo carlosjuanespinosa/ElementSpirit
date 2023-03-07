@@ -175,7 +175,7 @@ public class Movimiento : MonoBehaviour
     private void FuerzaAtaque()
     {
        forceAtack= explForce * (1 + StatsEnemigo.daño / 100);
-        
+        enemi.Golpes(+forceAtack);
     }
 }
 
