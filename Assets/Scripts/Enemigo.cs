@@ -8,6 +8,7 @@ public class Enemigo : MonoBehaviour
     [SerializeField] private float VELOCITY_MAGNITUDE = 45;
     [SerializeField] StatsPlayers StatsEnemigos;
     Rigidbody rb;
+    Collider cd;
     float temp = 5;
     Vector3 resp = new Vector3();
    
@@ -16,6 +17,7 @@ public class Enemigo : MonoBehaviour
     public void Start()
     {
         rb = GetComponent<Rigidbody>();
+        cd = GetComponent<Collider>();
         resp = transform.position;
         
     }
@@ -36,6 +38,7 @@ public class Enemigo : MonoBehaviour
         if(rb.isKinematic == true && Time.time > temp)
         {
             rb.isKinematic = false;
+            cd.enabled = true;
         }
     }
 
@@ -53,6 +56,7 @@ public class Enemigo : MonoBehaviour
     private void Despawn()
     {
         rb.isKinematic=true;
+        cd.enabled = false;
         transform.position = resp;
         StatsEnemigos.Respawn();
         temp = Time.time + TEMPS_SPAWN;

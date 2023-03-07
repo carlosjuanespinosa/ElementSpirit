@@ -108,9 +108,75 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "df4deab7-1985-4117-9eb8-fb35eba94695",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Caminar",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "181964df-ff53-4bac-a922-1c8edd24eccc",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Caminar",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "70edb4a7-8f4f-4fee-afe8-912d7976a935",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Caminar",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "25967eb5-7557-4d6b-b760-46dfe4b86b4f",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Caminar",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "06405032-1f2a-4379-a9e5-c0477671bbfe",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Caminar",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "4a75df4f-2c08-40b4-9a2e-f026269df8ee",
                     "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AtaqueDist",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1020074-b941-4cd8-be5b-d8d2ba7961a0",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
@@ -131,6 +197,17 @@
                 },
                 {
                     "name": "",
+                    "id": "be14561d-f544-4650-8bde-2ecc98de8642",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "Hold(duration=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AtaqueDistCar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f7ccbe14-b301-4730-9ffa-16d22ab911cd",
                     "path": "<Mouse>/rightButton",
                     "interactions": "Press(behavior=1)",
@@ -142,8 +219,41 @@
                 },
                 {
                     "name": "",
+                    "id": "647fc15b-ff77-485b-9f72-96df879b33dd",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AtaqueMele",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "51bd2c93-24a8-4753-802c-551b33a3a6dc",
                     "path": "<Keyboard>/space",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Defensa",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f97fa301-afb1-47c2-be12-2caa76ca92b7",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Defensa",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d823d4d6-5637-469b-b840-ceb1834495d9",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",

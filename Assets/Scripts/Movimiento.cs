@@ -20,14 +20,16 @@ public class Movimiento : MonoBehaviour
     [SerializeField] private float rotar = 100;
     [SerializeField] private float explForce =2500;
     [SerializeField] StatsPlayers StatsEnemigo;
+    [SerializeField] private Enemigo enemi;
+    [SerializeField] private float DAMAGEMELE = 15;
         // [SerializeField] private Animator animator;
 
     private Vector3 movementVector = new Vector3();
     private bool defensa = false;
     private float temp= 5;
     private Rigidbody rb;
-    private float forceAtack = 0;
-    private Enemigo enemi;
+    
+    
 
     
     
@@ -106,7 +108,7 @@ public class Movimiento : MonoBehaviour
         if (delante.isStopped && mele.isStopped && !defensa)
         {
          
-            rb.velocity = new Vector3(movementVector.x * speed, 0, movementVector.z * speed);
+            rb.velocity = new Vector3(movementVector.x * speed, rb.velocity.y , movementVector.z * speed);
 
         }   
 
@@ -138,9 +140,9 @@ public class Movimiento : MonoBehaviour
             foreach (Collider col in golpe)
             {
                 if (col.TryGetComponent(out Rigidbody rg)) {
-                    FuerzaAtaque();
-                    rg.AddExplosionForce(forceAtack, transform.position, meleRange, 10);
                     
+                    rg.AddExplosionForce(FuerzaAtaque(), transform.position, meleRange, 10);
+                    enemi.Golpes(+DAMAGEMELE);
                 }
             }
         } 
@@ -172,10 +174,10 @@ public class Movimiento : MonoBehaviour
         
 
     }
-    private void FuerzaAtaque()
+    private float FuerzaAtaque()
     {
-       forceAtack= explForce * (1 + StatsEnemigo.daño / 100);
-        enemi.Golpes(+forceAtack);
+      return explForce * (1 + StatsEnemigo.daño / 100);
+       
     }
 }
 
