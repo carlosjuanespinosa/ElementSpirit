@@ -63,12 +63,35 @@ public class PlayerManager : MonoBehaviour
             mainVirtualCamera.gameObject.SetActive(false);
 
             int layerToSet = (int)Mathf.Log(capasJugador[playerInput.playerIndex], 2);
+
+            virtualPlayerCamera.enabled = true;
+            playerCamera.enabled = true;
+
+            virtualPlayerCamera.gameObject.layer = layerToSet;
+
+            playerCamera.cullingMask |= 1 << layerToSet;
         }
+        else
+        {
+            virtualPlayerCamera.enabled = false;
+            playerCamera.enabled = false;
+
+            mainCamera.gameObject.SetActive(true);
+            mainVirtualCamera.gameObject.SetActive(true);
+
+            if (cinemachineTargetGroup.FindMember(playerInput.transform) < 0)
+            {
+                cinemachineTargetGroup.AddMember(playerInput.transform, 1, 2);
+                cinemachineTargetGroup.DoUpdate();
+            }
+        }
+        if (!PlayerExists(playerInput))
+            indiceJugadores.Add(playerInput.playerIndex);
     }
 
     private void RemovePlayer(PlayerInput playerInput)
     {
-
+        indiceJugadores.Remove(playerInput.playerIndex);
     }
 
     private void Rejoin()
