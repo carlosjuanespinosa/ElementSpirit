@@ -53,7 +53,7 @@ public class Enemigo : MonoBehaviour
         
     }
 
-    private void Despawn()
+    public void Despawn()
     {
         rb.isKinematic=true;
         cd.enabled = false;

@@ -7,12 +7,14 @@ using UnityEngine;
 public class StatsPlayers : ScriptableObject
 {
     public float daño { get; private set; }
+    public float kills { get; private set; }
 
     public event Action Changed;
 
    public void OnEnable()
     {
         daño = 0;
+        kills = 0;
     }
 
     public void DamagePlayer(float amount)
@@ -24,5 +26,12 @@ public class StatsPlayers : ScriptableObject
     {
         daño = 0;
         Changed?.Invoke();
+    }
+
+    public void ContKills(float amount)
+    {
+        kills += amount;
+        Changed?.Invoke();
+
     }
 }

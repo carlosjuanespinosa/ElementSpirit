@@ -9,34 +9,28 @@ public class Movimiento : MonoBehaviour
     [SerializeField] private float CARGA_MELE = 2;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float maxRange = 15;
-    [SerializeField] private float meleRange = 2F;
+    [SerializeField] public float meleRange = 2F;
     [SerializeField] private GameObject escudo;
     [SerializeField] private ParticleSystem delante;
     [SerializeField] private ParticleSystem derecha;
     [SerializeField] private ParticleSystem izquierda;
     [SerializeField] private ParticleSystem detras;
     [SerializeField] private ParticleSystem mele;
-    [SerializeField] private LayerMask layerVision;
     [SerializeField] private float rotar = 100;
-    [SerializeField] private float explForce =2500;
-    [SerializeField] StatsPlayers StatsEnemigo;
-    [SerializeField] private Enemigo enemi;
-    [SerializeField] private float DAMAGEMELE = 15;
+    
         // [SerializeField] private Animator animator;
 
     private Vector3 movementVector = new Vector3();
     private bool defensa = false;
     private float temp= 5;
     private Rigidbody rb;
-    
-    
-
-    
+    private Jugador jugador;
     
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         escudo.SetActive(false);
+       jugador= GetComponent<Jugador>();
         
     }
     public void SetMovementVector(Vector3 _movementVector)
@@ -83,15 +77,6 @@ public class Movimiento : MonoBehaviour
         }
        
     }
-
-    /*private void Rotar()
-    {
-        Vector3 relativePos = target.position - transform.position;
-
-        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-        transform.rotation = rotation;
-        
-    }*/
     private void Move()
     {
         // animator.SetFloat("z_move", movementVector.z);
@@ -102,8 +87,6 @@ public class Movimiento : MonoBehaviour
             Quaternion rotacioMoviment = Quaternion.LookRotation(movementVector, transform.up);
             transform.rotation = Quaternion.RotateTowards(transform.localRotation, rotacioMoviment, rotar);
         }
-
-       
 
         if (delante.isStopped && mele.isStopped && !defensa)
         {
@@ -134,17 +117,10 @@ public class Movimiento : MonoBehaviour
     {
         if (delante.isStopped && mele.isStopped && !defensa)
         {
-            Collider[] golpe = Physics.OverlapSphere(transform.position, meleRange, layerVision);
+            jugador.DañoMele();
             mele.Play();
             temp = Time.time + CARGA_MELE;
-            foreach (Collider col in golpe)
-            {
-                if (col.TryGetComponent(out Rigidbody rg)) {
-                    
-                    rg.AddExplosionForce(FuerzaAtaque(), transform.position, meleRange, 10);
-                    enemi.Golpes(+DAMAGEMELE);
-                }
-            }
+            
         } 
     }
 
@@ -168,16 +144,6 @@ public class Movimiento : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, meleRange);
     }
 
-    private void OnParticleCollision(GameObject other)
-    {
-        Debug.Log(other.name);
-        
-
-    }
-    private float FuerzaAtaque()
-    {
-      return explForce * (1 + StatsEnemigo.daño / 100);
-       
-    }
+  
 }
 
