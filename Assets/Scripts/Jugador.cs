@@ -10,18 +10,20 @@ public class Jugador : MonoBehaviour
     [SerializeField] public float meleRange = 2F;
     [SerializeField] StatsPlayers StatsJugador;
     [SerializeField] LayerMask LayerContrarios;
-    [SerializeField] private float explForce = 2500;
+    [SerializeField] private float explForce = 1500;
     [SerializeField] StatsPlayers StatsEnemigo;
     [SerializeField] private Enemigo enemi;
     [SerializeField] private Jugador jugador2;
-    
+    [SerializeField] private float gravityMultiplier = 2;
+
+
 
     Rigidbody rb;
     Collider cd;
     LayerMask lm;
     float temp = 5;
     private bool muerte;
-    
+    public GameObject lastOponentHit;
 
     Vector3 resp = new Vector3();
 
@@ -40,10 +42,11 @@ public class Jugador : MonoBehaviour
     {
         if(other.layer != lm)
         {
-            Golpes(+1);
+            Golpes(+1, other);
 
             Vector3 colisionDirection = transform.position - other.transform.position;
             Fuerza(colisionDirection.normalized);
+            
         }
         
     }
@@ -66,10 +69,15 @@ public class Jugador : MonoBehaviour
             rb.isKinematic = false;
             cd.enabled = true;
         }
+
+        // Simplement afegim una força adicional en la direcció del sistema de físiques
+        // de Unity multiplicat per cert nombre
+        rb.AddForce(Physics.gravity * gravityMultiplier, ForceMode.Acceleration);
     }
 
-    public void Golpes(float amount)
+    public void Golpes(float amount, GameObject whomInflictsDamage)
     {
+        lastOponentHit = whomInflictsDamage;
         StatsJugador.DamagePlayer(amount);
     }
 
@@ -96,7 +104,7 @@ public class Jugador : MonoBehaviour
                     enemi.Golpes(DAMAGEMELE);
 
                 if (col.gameObject.layer == 7 || col.gameObject.layer == 8)
-                    jugador2.Golpes(DAMAGEMELE);
+                    jugador2.Golpes(DAMAGEMELE, gameObject);
               
             }
         }
@@ -110,14 +118,14 @@ public class Jugador : MonoBehaviour
         StatsJugador.Respawn();
         temp = Time.time + TEMPS_SPAWN;
         muerte = true;
+        Debug.Log(lastOponentHit);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<Jugador>().muerte)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log(StatsJugador.kills);
-            StatsJugador.ContKills(+1);
+            Debug.Log(collision.gameObject.name);
         }
     }
     private float FuerzaAtaque()
@@ -125,4 +133,5 @@ public class Jugador : MonoBehaviour
         return explForce * (1 + StatsEnemigo.daño / 100);
 
     }
+    
 }

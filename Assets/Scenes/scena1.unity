@@ -443,6 +443,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1826976509034456941, guid: d5bf1da6a1d019a4bacc464a2c4c54e2, type: 3}
+      propertyPath: m_Mass
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1826976509044495968, guid: d5bf1da6a1d019a4bacc464a2c4c54e2, type: 3}
       propertyPath: field of view
       value: 33.50109
@@ -768,6 +772,8 @@ MonoBehaviour:
   StatsEnemigo: {fileID: 11400000, guid: 76a77afe6aaf4c34f9dc19dc8a95bf65, type: 2}
   enemi: {fileID: 1528591401}
   jugador2: {fileID: 1444062022}
+  gravityMultiplier: 2
+  lastOponentHit: {fileID: 0}
   DAMAGEMELE: 15
 --- !u!1 &475246758
 GameObject:
@@ -1813,6 +1819,8 @@ MonoBehaviour:
   StatsEnemigo: {fileID: 11400000, guid: 76a77afe6aaf4c34f9dc19dc8a95bf65, type: 2}
   enemi: {fileID: 1528591401}
   jugador2: {fileID: 350828993}
+  gravityMultiplier: 2
+  lastOponentHit: {fileID: 0}
   DAMAGEMELE: 15
 --- !u!1 &1528591395
 GameObject:
@@ -2952,6 +2960,10 @@ PrefabInstance:
     - target: {fileID: 1826976509034456940, guid: d5bf1da6a1d019a4bacc464a2c4c54e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826976509034456941, guid: d5bf1da6a1d019a4bacc464a2c4c54e2, type: 3}
+      propertyPath: m_Mass
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1826976509044495968, guid: d5bf1da6a1d019a4bacc464a2c4c54e2, type: 3}
       propertyPath: field of view
