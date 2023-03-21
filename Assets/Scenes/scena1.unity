@@ -369,7 +369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1826976509034456850, guid: d5bf1da6a1d019a4bacc464a2c4c54e2, type: 3}
       propertyPath: speed
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1826976509034456850, guid: d5bf1da6a1d019a4bacc464a2c4c54e2, type: 3}
       propertyPath: explForce
@@ -765,6 +765,7 @@ MonoBehaviour:
   VELOCITY_MAGNITUDE: 45
   meleRange: 2
   StatsJugador: {fileID: 11400000, guid: dc9e44cce62e3744cb0cb78e74df33c4, type: 2}
+  StatsJugador2: {fileID: 11400000, guid: a562b2881512e0747811fd38361dcfae, type: 2}
   LayerContrarios:
     serializedVersion: 2
     m_Bits: 192
@@ -772,7 +773,7 @@ MonoBehaviour:
   StatsEnemigo: {fileID: 11400000, guid: 76a77afe6aaf4c34f9dc19dc8a95bf65, type: 2}
   enemi: {fileID: 1528591401}
   jugador2: {fileID: 1444062022}
-  gravityMultiplier: 2
+  gravityMultiplier: 1
   lastOponentHit: {fileID: 0}
   DAMAGEMELE: 15
 --- !u!1 &475246758
@@ -1812,6 +1813,7 @@ MonoBehaviour:
   VELOCITY_MAGNITUDE: 45
   meleRange: 2
   StatsJugador: {fileID: 11400000, guid: a562b2881512e0747811fd38361dcfae, type: 2}
+  StatsJugador2: {fileID: 11400000, guid: dc9e44cce62e3744cb0cb78e74df33c4, type: 2}
   LayerContrarios:
     serializedVersion: 2
     m_Bits: 320
@@ -1819,7 +1821,7 @@ MonoBehaviour:
   StatsEnemigo: {fileID: 11400000, guid: 76a77afe6aaf4c34f9dc19dc8a95bf65, type: 2}
   enemi: {fileID: 1528591401}
   jugador2: {fileID: 350828993}
-  gravityMultiplier: 2
+  gravityMultiplier: 1
   lastOponentHit: {fileID: 0}
   DAMAGEMELE: 15
 --- !u!1 &1528591395
@@ -2913,6 +2915,10 @@ PrefabInstance:
       propertyPath: enemi
       value: 
       objectReference: {fileID: 1528591401}
+    - target: {fileID: 1826976509034456850, guid: d5bf1da6a1d019a4bacc464a2c4c54e2, type: 3}
+      propertyPath: speed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1826976509034456855, guid: d5bf1da6a1d019a4bacc464a2c4c54e2, type: 3}
       propertyPath: m_Name
       value: Player

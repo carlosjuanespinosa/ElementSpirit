@@ -9,12 +9,13 @@ public class Jugador : MonoBehaviour
     [SerializeField] private float VELOCITY_MAGNITUDE = 45;
     [SerializeField] public float meleRange = 2F;
     [SerializeField] StatsPlayers StatsJugador;
+    [SerializeField] StatsPlayers StatsJugador2;
     [SerializeField] LayerMask LayerContrarios;
     [SerializeField] private float explForce = 1500;
     [SerializeField] StatsPlayers StatsEnemigo;
     [SerializeField] private Enemigo enemi;
     [SerializeField] private Jugador jugador2;
-    [SerializeField] private float gravityMultiplier = 2;
+    [SerializeField] private float gravityMultiplier = 1.5f;
 
 
 
@@ -64,7 +65,7 @@ public class Jugador : MonoBehaviour
             Despawn();
         }
 
-        if (rb.isKinematic == true && Time.time > temp)
+        if (rb.isKinematic && Time.time > temp)
         {
             rb.isKinematic = false;
             cd.enabled = true;
@@ -96,7 +97,7 @@ public class Jugador : MonoBehaviour
             
             if (col.gameObject != gameObject && col.TryGetComponent(out Rigidbody rg))
             {
-
+                Debug.Log(FuerzaAtaque());
                 rg.AddExplosionForce(FuerzaAtaque(), transform.position, meleRange, 10);
                 Debug.Log(col.gameObject.layer);
                 
@@ -121,16 +122,17 @@ public class Jugador : MonoBehaviour
         Debug.Log(lastOponentHit);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log(collision.gameObject.name);
-        }
-    }
     private float FuerzaAtaque()
     {
-        return explForce * (1 + StatsEnemigo.daño / 100);
+        if(gameObject.layer==7 || gameObject.layer == 8)
+        {
+            return explForce * (1 + StatsJugador2.daño / 100);
+        }
+        else
+        {
+            return explForce * (1 + StatsEnemigo.daño / 100);
+        }
+        
 
     }
     
