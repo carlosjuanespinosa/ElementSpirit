@@ -5,6 +5,7 @@ using UnityEngine;
 public class Jugador : MonoBehaviour
 {
     private float TEMPS_SPAWN = 2;
+    private float UPWARDMODIFIER = 10;
     
     [SerializeField] private float VELOCITY_MAGNITUDE = 45;
     [SerializeField] public float meleRange = 2F;
@@ -98,7 +99,7 @@ public class Jugador : MonoBehaviour
             if (col.gameObject != gameObject && col.TryGetComponent(out Rigidbody rg))
             {
                 Debug.Log(FuerzaAtaque());
-                rg.AddExplosionForce(FuerzaAtaque(), transform.position, meleRange, 10);
+                rg.AddExplosionForce(FuerzaAtaque(), transform.position, meleRange, UPWARDMODIFIER);
                 Debug.Log(col.gameObject.layer);
                 
                if (col.gameObject.layer == 6)

@@ -8,23 +8,23 @@ public class MultiplayerInput : MonoBehaviour
     private Movimiento movimiento;
 
     private InputActionAsset inputAsset;
-    private InputActionMap spirit;
+    private InputActionMap jugador;
     
     private void OnEnable()
     {
         movimiento = GetComponent<Movimiento>();
 
         inputAsset = GetComponent<PlayerInput>().actions;
-        spirit = inputAsset.FindActionMap("Player");
+        jugador = inputAsset.FindActionMap("Jugador");
 
-        spirit.Enable();
+        jugador.Enable();
 
-        spirit.FindAction("Caminar").performed += Caminar;
-        spirit.FindAction("Caminar").canceled += Caminar;
-        spirit.FindAction("AtaqueDist").performed += AtqDist;
-        spirit.FindAction("AtaqueDistCar").performed += AtqDistCarg;
-        spirit.FindAction("AtaqueMele").performed += AtqMele;
-        spirit.FindAction("Defensa").performed += Defens;
+        jugador.FindAction("Caminar").performed += Caminar;
+        jugador.FindAction("Caminar").canceled += Caminar;
+        jugador.FindAction("AtaqueDist").performed += AtqDist;
+        jugador.FindAction("AtaqueDistCar").performed += AtqDistCarg;
+        jugador.FindAction("AtaqueMele").performed += AtqMele;
+        jugador.FindAction("Defensa").performed += Defens;
 
     }
 
@@ -54,14 +54,14 @@ public class MultiplayerInput : MonoBehaviour
     }
     private void OnDisable()
     {
-        spirit.FindAction("Caminar").performed -= Caminar;
-        spirit.FindAction("Caminar").canceled -= Caminar;
-        spirit.FindAction("Caminar").performed -= AtqDist;
-        spirit.FindAction("AtaqueDistCar").performed -= AtqDistCarg;
-        spirit.FindAction("AtaqueMele").performed -= AtqMele;
-        spirit.FindAction("Defensa").performed -= Defens;
+        jugador.FindAction("Caminar").performed -= Caminar;
+        jugador.FindAction("Caminar").canceled -= Caminar;
+        jugador.FindAction("Caminar").performed -= AtqDist;
+        jugador.FindAction("AtaqueDistCar").performed -= AtqDistCarg;
+        jugador.FindAction("AtaqueMele").performed -= AtqMele;
+        jugador.FindAction("Defensa").performed -= Defens;
 
-        spirit.Disable();
+        jugador.Disable();
     }
 
 }

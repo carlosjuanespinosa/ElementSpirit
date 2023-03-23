@@ -25,9 +25,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)){
-            Rejoin();
-        }
+       
     }
     private void OnEnable()
     {
@@ -48,16 +46,19 @@ public class PlayerManager : MonoBehaviour
 
     private void AddPlayer(PlayerInput playerInput)
     {
-        Transform playerParentObject = playerInput.transform.parent;
-
+      
+        //Transform playerParentObject = playerInput.transform.parent;
+       
         if (!PlayerExists(playerInput))
         {
-            playerParentObject.position = posicionSpawn[playerInput.playerIndex].position;
+           playerInput.transform.position = posicionSpawn[playerInput.playerIndex].position;
+            int layerPlayer = (int)Mathf.Log(capasJugador[playerInput.playerIndex], 2);
+            playerInput.gameObject.layer= layerPlayer;
         }
 
-        CinemachineVirtualCamera virtualPlayerCamera = playerParentObject.GetComponentInChildren<CinemachineVirtualCamera>();
-        Camera playerCamera = playerParentObject.GetComponentInChildren<Camera>();
-        if (playerInputManager.splitScreen)
+       CinemachineVirtualCamera virtualPlayerCamera = playerInput.GetComponentInChildren<CinemachineVirtualCamera>();
+        Camera playerCamera = playerInput.GetComponentInChildren<Camera>();
+       /*  (playerInputManager.splitScreen)
         {
             mainCamera.gameObject.SetActive(false);
             mainVirtualCamera.gameObject.SetActive(false);
@@ -84,7 +85,7 @@ public class PlayerManager : MonoBehaviour
                 cinemachineTargetGroup.AddMember(playerInput.transform, 1, 2);
                 cinemachineTargetGroup.DoUpdate();
             }
-        }
+        }*/
         if (!PlayerExists(playerInput))
             indiceJugadores.Add(playerInput.playerIndex);
     }
@@ -101,7 +102,8 @@ public class PlayerManager : MonoBehaviour
         
         foreach (PlayerInput player in players)
         {
-            AddPlayer(player);
+           AddPlayer(player);
+           
         }
     }
 }
