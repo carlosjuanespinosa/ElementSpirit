@@ -1193,7 +1193,7 @@ MonoBehaviour:
   m_RotationMode: 0
   m_UpdateMethod: 0
   m_Targets:
-  - target: {fileID: 7106647563061995918, guid: bb56bc918aaf0274e970cf10f9cbe592, type: 3}
+  - target: {fileID: 0}
     weight: 7.95
     radius: 3.78
   - target: {fileID: 0}

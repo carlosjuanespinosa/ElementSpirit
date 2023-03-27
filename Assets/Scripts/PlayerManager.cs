@@ -54,38 +54,41 @@ public class PlayerManager : MonoBehaviour
            playerInput.transform.position = posicionSpawn[playerInput.playerIndex].position;
             int layerPlayer = (int)Mathf.Log(capasJugador[playerInput.playerIndex], 2);
             playerInput.gameObject.layer= layerPlayer;
+            
         }
+        // ADD CAMERA GRUPAL
+        cinemachineTargetGroup.AddMember(playerInput.transform, 8, 4);
 
-       CinemachineVirtualCamera virtualPlayerCamera = playerInput.GetComponentInChildren<CinemachineVirtualCamera>();
-        Camera playerCamera = playerInput.GetComponentInChildren<Camera>();
-       /*  (playerInputManager.splitScreen)
-        {
-            mainCamera.gameObject.SetActive(false);
-            mainVirtualCamera.gameObject.SetActive(false);
+        /*CinemachineVirtualCamera virtualPlayerCamera = playerInput.GetComponentInChildren<CinemachineVirtualCamera>();
+         Camera playerCamera = playerInput.GetComponentInChildren<Camera>();
+        if (playerInputManager.splitScreen)
+         {
+             mainCamera.gameObject.SetActive(false);
+             mainVirtualCamera.gameObject.SetActive(false);
 
-            int layerToSet = (int)Mathf.Log(capasJugador[playerInput.playerIndex], 2);
+             int layerToSet = (int)Mathf.Log(capasJugador[playerInput.playerIndex], 2);
 
-            virtualPlayerCamera.enabled = true;
-            playerCamera.enabled = true;
+             virtualPlayerCamera.enabled = true;
+             playerCamera.enabled = true;
 
-            virtualPlayerCamera.gameObject.layer = layerToSet;
+             virtualPlayerCamera.gameObject.layer = layerToSet;
 
-            playerCamera.cullingMask |= 1 << layerToSet;
-        }
-        else
-        {
-            virtualPlayerCamera.enabled = false;
-            playerCamera.enabled = false;
+             playerCamera.cullingMask |= 1 << layerToSet;
+         }
+         else
+         {
+             virtualPlayerCamera.enabled = false;
+             playerCamera.enabled = false;
 
-            mainCamera.gameObject.SetActive(true);
-            mainVirtualCamera.gameObject.SetActive(true);
+             mainCamera.gameObject.SetActive(true);
+             mainVirtualCamera.gameObject.SetActive(true);
 
-            if (cinemachineTargetGroup.FindMember(playerInput.transform) < 0)
-            {
-                cinemachineTargetGroup.AddMember(playerInput.transform, 1, 2);
-                cinemachineTargetGroup.DoUpdate();
-            }
-        }*/
+             if (cinemachineTargetGroup.FindMember(playerInput.transform) < 0)
+             {
+                 cinemachineTargetGroup.AddMember(playerInput.transform, 1, 2);
+                 cinemachineTargetGroup.DoUpdate();
+             }
+         }*/
         if (!PlayerExists(playerInput))
             indiceJugadores.Add(playerInput.playerIndex);
     }
