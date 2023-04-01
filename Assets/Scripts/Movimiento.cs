@@ -15,10 +15,15 @@ public class Movimiento : MonoBehaviour
     [SerializeField] private ParticleSystem derecha;
     [SerializeField] private ParticleSystem izquierda;
     [SerializeField] private ParticleSystem detras;
-    [SerializeField] private ParticleSystem mele;
+    //[SerializeField] private ParticleSystem delante2;
+   // [SerializeField] private ParticleSystem derecha2;
+    //[SerializeField] private ParticleSystem izquierda2;
+    //[SerializeField] private ParticleSystem detras2;
+   [SerializeField] private ParticleSystem mele;
     [SerializeField] private float rotar = 100;
-    
-        // [SerializeField] private Animator animator;
+   
+
+    // [SerializeField] private Animator animator;
 
     private Vector3 movementVector = new Vector3();
     private bool defensa = false;
@@ -73,9 +78,13 @@ public class Movimiento : MonoBehaviour
             detras.Stop();
             izquierda.Stop();
             mele.Stop();
-            
+            //delante2.Stop();
+            //derecha2.Stop();
+            //detras2.Stop();
+            //izquierda2.Stop();
         }
        
+
     }
     private void Move()
     {
@@ -100,17 +109,41 @@ public class Movimiento : MonoBehaviour
     
     private void AtaqueDistCarg()
     {
-        derecha.Play();
-        delante.Play();
-        izquierda.Play();
-        detras.Play();
-        temp = Time.time + CARGA_DISTANCIA;
+
+        //if (gameObject.layer == 7)
+        //{
+            derecha.Play();
+            delante.Play();
+            izquierda.Play();
+            detras.Play();
+            temp = Time.time + CARGA_DISTANCIA;
+       // }
+        /*if (gameObject.layer == 8)
+        {
+            derecha2.Play();
+            delante2.Play();
+            izquierda2.Play();
+            detras2.Play();
+            temp = Time.time + CARGA_DISTANCIA;
+        }*/
     }
 
     private void AtaqueDist()
     {
-        delante.Play();
-        temp = Time.time + CARGA_DISTANCIA;
+        //Debug.Log(gameObject.layer);
+        //Debug.Log(gameObject.name);
+        //if (gameObject.layer == 7)
+        //{
+            delante.Play();
+            temp = Time.time + CARGA_DISTANCIA;
+          //  Debug.Log(gameObject.name+"1");
+        //}
+        /*if (gameObject.layer == 8)
+        {
+            delante2.Play();
+            temp = Time.time + CARGA_DISTANCIA;
+            Debug.Log(gameObject.name + "2");
+        }*/
     }
 
     private void MeleAtaque()
