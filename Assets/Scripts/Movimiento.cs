@@ -5,6 +5,7 @@ using UnityEngine;
 public class Movimiento : MonoBehaviour
 {
     // Start is called before the first frame update
+    
     [SerializeField] private float CARGA_DISTANCIA = 10;
     [SerializeField] private float CARGA_MELE = 2;
     [SerializeField] private float speed = 10f;
@@ -21,18 +22,20 @@ public class Movimiento : MonoBehaviour
     //[SerializeField] private ParticleSystem detras2;
    [SerializeField] private ParticleSystem mele;
     [SerializeField] private float rotar = 100;
-   
+
 
     // [SerializeField] private Animator animator;
-
+    private MenuPause menuPausa;
     private Vector3 movementVector = new Vector3();
     private bool defensa = false;
     private float temp= 5;
     private Rigidbody rb;
     private Jugador jugador;
     
+    
     private void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         escudo.SetActive(false);
        jugador= GetComponent<Jugador>();
@@ -51,6 +54,12 @@ public class Movimiento : MonoBehaviour
             AtaqueDist();
         }
     }
+
+    public void Pausa()
+    {
+        menuPausa.Pausamenu();
+    }
+   
 
     public void CaC()
     {
@@ -176,6 +185,7 @@ public class Movimiento : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, maxRange);
         Gizmos.DrawWireSphere(transform.position, meleRange);
     }
+  
 
   
 }

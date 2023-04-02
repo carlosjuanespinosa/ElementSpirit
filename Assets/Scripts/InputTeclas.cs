@@ -8,6 +8,7 @@ public class InputTeclas : MonoBehaviour
     // Start is called before the first frame update
     private InputJugador inputJug;
     private Movimiento movimiento;
+    
 
     private void OnEnable()
     {
@@ -21,6 +22,7 @@ public class InputTeclas : MonoBehaviour
         inputJug.Jugador.AtaqueDistCar.performed += AtqDistCarg;
         inputJug.Jugador.AtaqueMele.performed += AtqMele;
         inputJug.Jugador.Defensa.performed += Defens;
+        inputJug.Jugador.Pausa.performed += Pause;
 
     }
 
@@ -47,6 +49,10 @@ public class InputTeclas : MonoBehaviour
     {
         movimiento.Defensa();
     }
+    private void Pause(InputAction.CallbackContext ctx)
+    {
+        movimiento.Pausa();
+    }
     private void OnDisable()
     {
         inputJug.Jugador.Caminar.performed -= Caminar;
@@ -55,6 +61,7 @@ public class InputTeclas : MonoBehaviour
         inputJug.Jugador.AtaqueDistCar.performed -= AtqDistCarg;
         inputJug.Jugador.AtaqueMele.performed -= AtqMele;
         inputJug.Jugador.Defensa.performed -= Defens;
+        inputJug.Jugador.Pausa.performed -= Pause;
 
         inputJug.Disable();
     }

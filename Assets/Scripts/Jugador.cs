@@ -6,8 +6,9 @@ public class Jugador : MonoBehaviour
 {
     private float TEMPS_SPAWN = 2;
     private float UPWARDMODIFIER = 10;
-    
-    
+
+    private float Muerte1 = 0;
+    private float Muerte2 = 0;
     
     [SerializeField] private float VELOCITY_MAGNITUDE = 45;
     [SerializeField] public float meleRange = 2F;
@@ -22,9 +23,9 @@ public class Jugador : MonoBehaviour
     [SerializeField] private float gravityMultiplier = 1.5f;
 
     [SerializeField] public List<ParticleSystem> particle;
-    
 
 
+    private Inicio inici;
     int LayerContrarios;
     Rigidbody rb;
     Collider cd;
@@ -72,7 +73,7 @@ public class Jugador : MonoBehaviour
         }
         if (gameObject.layer == LAYERJUG2)
         {
-            
+            LayerContrarios = LAYERJUG1;
             foreach (ParticleSystem particle in particle)
             {
                 var collision = particle.collision;
@@ -100,6 +101,13 @@ public class Jugador : MonoBehaviour
         {
             muerte = false;
         }
+
+
+        if(Muerte1 == 3 || Muerte2==3)
+        {   
+                inici.Ganador();   
+        }
+
 
     }
     private void FixedUpdate()
@@ -135,7 +143,11 @@ public class Jugador : MonoBehaviour
 
     private void Fuerza(Vector3 forceDirection)
     {
+        if(gameObject.layer == LAYERJUG1)
         rb.AddForce(forceDirection * StatsJugador.daño, ForceMode.Impulse);
+
+        if (gameObject.layer == LAYERJUG2)
+            rb.AddForce(forceDirection * StatsJugador2.daño, ForceMode.Impulse);
 
     }
 
@@ -166,7 +178,8 @@ public class Jugador : MonoBehaviour
                 if (col.gameObject.layer == LAYERJUG1|| col.gameObject.layer == LAYERJUG2)
                 {
                     Debug.Log("Layer if Detectado");
-                    jugador2.Golpes(DAMAGEMELE, gameObject);
+                    Jugador jug = col.gameObject.GetComponent<Jugador>();
+                    jug.Golpes(DAMAGEMELE, gameObject);
                 }
 
 
@@ -187,10 +200,12 @@ public class Jugador : MonoBehaviour
         if(gameObject.layer == LAYERJUG1)
         {
             StatsJugador.Respawn();
+            Muerte1++;
         }
         if(gameObject.layer == LAYERJUG2)
         {
             StatsJugador2.Respawn();
+            Muerte2++;
         }
         temp = Time.time + TEMPS_SPAWN;
         muerte = true;

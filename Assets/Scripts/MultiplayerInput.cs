@@ -6,6 +6,7 @@ public class MultiplayerInput : MonoBehaviour
 {
     
     private Movimiento movimiento;
+  
 
     private InputActionAsset inputAsset;
     private InputActionMap jugador;
@@ -13,6 +14,7 @@ public class MultiplayerInput : MonoBehaviour
     private void OnEnable()
     {
         movimiento = GetComponent<Movimiento>();
+        
 
         inputAsset = GetComponent<PlayerInput>().actions;
         jugador = inputAsset.FindActionMap("Jugador");
@@ -25,7 +27,7 @@ public class MultiplayerInput : MonoBehaviour
         jugador.FindAction("AtaqueDistCar").performed += AtqDistCarg;
         jugador.FindAction("AtaqueMele").performed += AtqMele;
         jugador.FindAction("Defensa").performed += Defens;
-
+        jugador.FindAction("Pausa").performed += Pause;
     }
 
     private void Caminar(InputAction.CallbackContext ctx)
@@ -52,6 +54,10 @@ public class MultiplayerInput : MonoBehaviour
     {
         movimiento.Defensa();
     }
+    private void Pause(InputAction.CallbackContext ctx)
+    {
+        movimiento.Pausa();
+    }
     private void OnDisable()
     {
         jugador.FindAction("Caminar").performed -= Caminar;
@@ -60,6 +66,7 @@ public class MultiplayerInput : MonoBehaviour
         jugador.FindAction("AtaqueDistCar").performed -= AtqDistCarg;
         jugador.FindAction("AtaqueMele").performed -= AtqMele;
         jugador.FindAction("Defensa").performed -= Defens;
+        jugador.FindAction("Pausa").performed -= Pause;
 
         jugador.Disable();
     }

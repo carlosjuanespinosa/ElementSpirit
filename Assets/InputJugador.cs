@@ -71,6 +71,15 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pausa"",
+                    ""type"": ""Button"",
+                    ""id"": ""57326f3f-86f8-4086-a128-3d281ced1266"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -282,6 +291,28 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
                     ""action"": ""Defensa"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a92cec55-0f44-416e-8d21-cacd341c25b3"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pausa"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71fc295d-ba9a-47f1-aee8-c91a59c0a9f7"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pausa"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -323,6 +354,7 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
         m_Jugador_AtaqueDistCar = m_Jugador.FindAction("AtaqueDistCar", throwIfNotFound: true);
         m_Jugador_AtaqueMele = m_Jugador.FindAction("AtaqueMele", throwIfNotFound: true);
         m_Jugador_Defensa = m_Jugador.FindAction("Defensa", throwIfNotFound: true);
+        m_Jugador_Pausa = m_Jugador.FindAction("Pausa", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -387,6 +419,7 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
     private readonly InputAction m_Jugador_AtaqueDistCar;
     private readonly InputAction m_Jugador_AtaqueMele;
     private readonly InputAction m_Jugador_Defensa;
+    private readonly InputAction m_Jugador_Pausa;
     public struct JugadorActions
     {
         private @InputJugador m_Wrapper;
@@ -396,6 +429,7 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
         public InputAction @AtaqueDistCar => m_Wrapper.m_Jugador_AtaqueDistCar;
         public InputAction @AtaqueMele => m_Wrapper.m_Jugador_AtaqueMele;
         public InputAction @Defensa => m_Wrapper.m_Jugador_Defensa;
+        public InputAction @Pausa => m_Wrapper.m_Jugador_Pausa;
         public InputActionMap Get() { return m_Wrapper.m_Jugador; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -420,6 +454,9 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
                 @Defensa.started -= m_Wrapper.m_JugadorActionsCallbackInterface.OnDefensa;
                 @Defensa.performed -= m_Wrapper.m_JugadorActionsCallbackInterface.OnDefensa;
                 @Defensa.canceled -= m_Wrapper.m_JugadorActionsCallbackInterface.OnDefensa;
+                @Pausa.started -= m_Wrapper.m_JugadorActionsCallbackInterface.OnPausa;
+                @Pausa.performed -= m_Wrapper.m_JugadorActionsCallbackInterface.OnPausa;
+                @Pausa.canceled -= m_Wrapper.m_JugadorActionsCallbackInterface.OnPausa;
             }
             m_Wrapper.m_JugadorActionsCallbackInterface = instance;
             if (instance != null)
@@ -439,6 +476,9 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
                 @Defensa.started += instance.OnDefensa;
                 @Defensa.performed += instance.OnDefensa;
                 @Defensa.canceled += instance.OnDefensa;
+                @Pausa.started += instance.OnPausa;
+                @Pausa.performed += instance.OnPausa;
+                @Pausa.canceled += instance.OnPausa;
             }
         }
     }
@@ -468,5 +508,6 @@ public partial class @InputJugador : IInputActionCollection2, IDisposable
         void OnAtaqueDistCar(InputAction.CallbackContext context);
         void OnAtaqueMele(InputAction.CallbackContext context);
         void OnDefensa(InputAction.CallbackContext context);
+        void OnPausa(InputAction.CallbackContext context);
     }
 }

@@ -64,14 +64,21 @@ public class PlayerManager : MonoBehaviour
             int layerPlayer = (int)Mathf.Log(capasJugador[playerInput.playerIndex], 2);
             playerInput.gameObject.layer= layerPlayer;
 
-            if(playerInput.gameObject.TryGetComponent(out Jugador jugador)) {
-                foreach (ParticleSystem particle in jugador.particle)
-                {
-                    particle.gameObject.layer = layerPlayer;
-                    
-                    
-                }
+            if (playerInput.TryGetComponent(out ColorSelector colorSelector))
+            {
+                colorSelector.ChangeMainMaterial(tipoJugador[playerInput.playerIndex]);
             }
+
+                if (playerInput.gameObject.TryGetComponent(out Jugador jugador))
+                {
+                    foreach (ParticleSystem particle in jugador.particle)
+                    {
+                        particle.gameObject.layer = layerPlayer;
+
+
+                    }
+                }
+            
 
            
 
